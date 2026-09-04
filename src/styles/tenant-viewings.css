@@ -1,0 +1,281 @@
+/* src/styles/tenant-viewings.css */
+
+.viewings-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+}
+
+.viewings-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--muted, #8a7274);
+}
+
+.viewings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline, #e7dcdb);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.viewings-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display, 'Spectral', Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink, #221a1b);
+  margin: 0;
+}
+
+.viewings-header h1 svg {
+  color: var(--maroon-600, #82232c);
+}
+
+.viewings-count {
+  font-size: 0.9rem;
+  color: var(--muted, #8a7274);
+  margin: 0;
+}
+
+.viewings-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: var(--muted, #8a7274);
+}
+
+.viewings-empty svg {
+  color: var(--hairline, #e7dcdb);
+  margin-bottom: 16px;
+}
+
+.viewings-empty h3 {
+  font-family: var(--font-display, 'Spectral', Georgia, serif);
+  font-size: 1.2rem;
+  color: var(--ink, #221a1b);
+  margin: 0 0 8px;
+}
+
+.viewings-empty p {
+  font-size: 0.95rem;
+  margin: 0 0 20px;
+}
+
+.viewings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.viewings-card {
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--paper, #fff);
+  border-radius: 12px;
+  border: 1px solid var(--hairline, #e7dcdb);
+  border-left: 4px solid var(--hairline, #e7dcdb);
+  transition: box-shadow 0.15s ease;
+}
+
+.viewings-card:hover {
+  box-shadow: 0 2px 12px rgba(34, 26, 27, 0.06);
+}
+
+.viewings-card.status-pending {
+  border-left-color: #f0b84a;
+}
+
+.viewings-card.status-confirmed {
+  border-left-color: #3f6b54;
+}
+
+.viewings-card.status-declined {
+  border-left-color: #b5482f;
+}
+
+.viewings-card.status-completed {
+  border-left-color: #4f5a6b;
+}
+
+.viewings-card-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: var(--paper-warm, #faf6f5);
+}
+
+.viewings-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.viewings-card-content h3 {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink, #221a1b);
+  margin: 0 0 4px;
+  cursor: pointer;
+}
+
+.viewings-card-content h3:hover {
+  color: var(--maroon-600, #82232c);
+}
+
+.viewings-card-address {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--muted, #8a7274);
+  margin: 0 0 8px;
+}
+
+.viewings-card-details {
+  display: flex;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: var(--muted, #8a7274);
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.viewings-card-message {
+  font-size: 0.85rem;
+  color: var(--muted, #8a7274);
+  margin: 0 0 10px;
+  font-style: italic;
+  padding: 8px 12px;
+  background: var(--paper-warm, #faf6f5);
+  border-radius: 6px;
+}
+
+.viewings-card-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 14px;
+  border-radius: 12px;
+}
+
+.status-badge.status-pending {
+  background: #fef6e3;
+  color: #b58a3f;
+}
+
+.status-badge.status-confirmed {
+  background: #e1eae3;
+  color: #3f6b54;
+}
+
+.status-badge.status-declined {
+  background: #f6e2dc;
+  color: #b5482f;
+}
+
+.status-badge.status-completed {
+  background: #e3e8f0;
+  color: #4f5a6b;
+}
+
+.status-description {
+  font-size: 0.78rem;
+  color: var(--muted, #8a7274);
+}
+
+@media (max-width: 768px) {
+  .viewings-page {
+    padding: 16px;
+  }
+
+  .viewings-card {
+    flex-direction: column;
+    padding: 14px 16px;
+  }
+
+  .viewings-card-image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .viewings-card-details {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .viewings-card-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .viewings-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.browse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--maroon-800, #5a1a20);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.browse-btn:hover {
+  background: var(--maroon-950, #2b0d10);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(90, 26, 32, 0.3);
+}
+
+.browse-btn svg {
+  flex-shrink: 0;
+  display: block;
+}

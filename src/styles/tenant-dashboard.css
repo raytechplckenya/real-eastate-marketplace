@@ -31,15 +31,15 @@
   to { transform: rotate(360deg); }
 }
 
-/* ---------- Sidebar ---------- */
+/* ---------- Sidebar - Brown Theme ---------- */
 .tenant-sidebar {
   width: 260px;
   min-width: 260px;
   height: 100vh;
   position: sticky;
   top: 0;
-  background: var(--paper, #fff);
-  border-right: 1px solid var(--hairline, #e7dcdb);
+  background: var(--maroon-800, #5a1a20); /* Brown background */
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
@@ -53,15 +53,27 @@
   font-family: var(--font-display, 'Spectral', Georgia, serif);
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--maroon-800, #5a1a20);
+  color: #ffffff;
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--hairline, #e7dcdb);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 20px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-decoration: none;
+}
+
+.sidebar-brand:hover {
+  opacity: 0.8;
 }
 
 .sidebar-brand svg {
-  color: var(--maroon-600, #82232c);
+  color: #ffffff;
 }
+
+.sidebar-brand span {
+  color: #ffffff;
+}
+
 
 .sidebar-profile {
   display: flex;
@@ -76,7 +88,7 @@
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--hairline, #e7dcdb);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-profile-info {
@@ -88,13 +100,13 @@
   font-family: var(--font-body, 'Inter', sans-serif);
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--ink, #221a1b);
+  color: #ffffff; /* White text */
   margin: 0;
 }
 
 .sidebar-profile-role {
   font-size: 0.7rem;
-  color: var(--muted, #8a7274);
+  color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin: 0;
@@ -115,7 +127,7 @@
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: var(--muted, #8a7274);
+  color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: 0.85rem;
   font-weight: 500;
@@ -126,28 +138,38 @@
 }
 
 .sidebar-nav-item:hover {
-  background: var(--paper-warm, #faf6f5);
-  color: var(--ink, #221a1b);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 .sidebar-nav-item.active {
-  background: var(--paper-warm, #faf6f5);
-  color: var(--maroon-800, #5a1a20);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   font-weight: 600;
 }
 
 .sidebar-nav-item svg {
   flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-nav-item.active svg {
+  color: #ffffff;
+}
+
+.sidebar-nav-item:hover svg {
+  color: #ffffff;
 }
 
 .sidebar-nav-item span {
   flex: 1;
   text-align: left;
+  color: inherit;
 }
 
 .sidebar-badge {
-  background: var(--maroon-600, #82232c);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   font-size: 0.6rem;
   font-weight: 600;
   padding: 2px 8px;
@@ -157,12 +179,17 @@
 
 .sidebar-nav-item.logout {
   margin-top: auto;
-  border-top: 1px solid var(--hairline, #e7dcdb);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 16px;
 }
 
 .sidebar-nav-item.logout:hover {
-  color: #b5482f;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.sidebar-nav-item.logout svg {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* ---------- Main Content ---------- */
@@ -171,6 +198,7 @@
   padding: 24px 32px 40px;
   overflow-y: auto;
   min-height: 100vh;
+  background: var(--paper-warm, #faf6f5);
 }
 
 /* ---------- Header ---------- */
@@ -434,30 +462,52 @@
   padding: 20px 16px;
 }
 
+
 .browse-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
   background: var(--maroon-800, #5a1a20);
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-family: var(--font-body, 'Inter', sans-serif);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .browse-btn:hover {
   background: var(--maroon-950, #2b0d10);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(90, 26, 32, 0.3);
+}
+
+.browse-btn svg {
+  flex-shrink: 0;
+  display: block;
 }
 
 .browse-btn.small {
   padding: 6px 14px;
   font-size: 0.75rem;
 }
+
+/* Empty state button override */
+.empty-state .browse-btn,
+.empty-state.small .browse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 
 /* ---------- Property Grid ---------- */
 .property-grid {

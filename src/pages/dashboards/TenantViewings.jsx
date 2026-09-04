@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabaseClient';
-import { Calendar, Clock, ArrowLeft, MapPin } from 'lucide-react';
-import '../../styles/tenant-dashboard.css';
+import { Calendar, Clock, ArrowLeft, MapPin, Search, Eye, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import '../../styles/tenant-viewings.css';
 
 export default function TenantViewings() {
   const { profile } = useAuth();
@@ -15,8 +15,7 @@ export default function TenantViewings() {
   useEffect(() => {
     const fetchViewings = async () => {
       try {
-        const { data } = await supabase
-          .schema('marketplace')
+        const { data, error } = await supabase
           .from('viewing_requests')
           .select(`
             *,
@@ -30,6 +29,7 @@ export default function TenantViewings() {
           .eq('buyer_id', profile.id)
           .order('requested_at', { ascending: false });
 
+        if (error) throw error;
         setViewings(data || []);
       } catch (error) {
         console.error('Error fetching viewings:', error);
@@ -53,69 +53,125 @@ export default function TenantViewings() {
     });
   };
 
-  const getStatusBadge = (status) => {
-    const badges = {
-      pending: { label: 'Pending', class: 'badge-pending' },
-      confirmed: { label: 'Confirmed', class: 'badge-confirmed' },
-      declined: { label: 'Declined', class: 'badge-declined' },
-      completed: { label: 'Completed', class: 'badge-completed' }
+  const formatTime = (date) => {
+    if (!date) return '';
+    return new Date(date).toLocaleTimeString('en-KE', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const getStatusInfo = (status) => {
+    const statuses = {
+      pending: { 
+        label: 'Pending', 
+        class: 'status-pending',
+        icon: Clock,
+        description: 'Awaiting response from the host'
+      },
+      confirmed: { 
+        label: 'Confirmed', 
+        class: 'status-confirmed',
+        icon: CheckCircle,
+        description: 'Viewing has been confirmed'
+      },
+      declined: { 
+        label: 'Declined', 
+        class: 'status-declined',
+        icon: XCircle,
+        description: 'Viewing request was declined'
+      },
+      completed: { 
+        label: 'Completed', 
+        class: 'status-completed',
+        icon: Eye,
+        description: 'Viewing has been completed'
+      }
     };
-    return badges[status] || badges.pending;
+    return statuses[status] || statuses.pending;
   };
 
   if (loading) {
-    return <div className="tenant-page-loading">Loading your viewings...</div>;
+    return (
+      <div className="viewings-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading your viewings...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="tenant-page">
+    <div className="viewings-page">
       <button className="back-btn" onClick={() => navigate('/dashboard')}>
         <ArrowLeft size={18} /> Back to Dashboard
       </button>
 
-      <div className="tenant-page-header">
+      <div className="viewings-header">
         <h1><Calendar size={24} /> Viewing Requests</h1>
-        <p>{viewings.length} viewing requests</p>
+        <p className="viewings-count">{viewings.length} viewing requests</p>
       </div>
 
       {viewings.length === 0 ? (
-        <div className="tenant-empty-state">
-          <Calendar size={48} />
-          <p>No viewing requests yet</p>
+        <div className="viewings-empty">
+          <Eye size={48} />
+          <h3>No viewing requests yet</h3>
+          <p>Schedule a viewing from any property page</p>
           <button className="browse-btn" onClick={() => navigate('/listings')}>
-            Find Properties
+            <Search size={16} /> Browse Properties
           </button>
         </div>
       ) : (
-        <div className="tenant-list">
+        <div className="viewings-list">
           {viewings.map(viewing => {
-            const status = getStatusBadge(viewing.status);
+            const status = getStatusInfo(viewing.status);
+            const StatusIcon = status.icon;
+            const hasDateTime = viewing.scheduled_for || viewing.preferred_at;
+            
             return (
-              <div key={viewing.id} className={`tenant-list-item status-${viewing.status}`}>
-                <div className="tenant-list-item-left">
+              <div key={viewing.id} className={`viewings-card ${status.class}`}>
+                <div className="viewings-card-left">
                   <img 
-                    src={viewing.listings?.images?.[0]?.url || 'https://placehold.co/80x80?text=🏠'} 
+                    src={viewing.listings?.images?.[0]?.url || 'https://placehold.co/100x100?text=🏠'} 
                     alt={viewing.listings?.title}
                     onClick={() => navigate(`/listings/${viewing.listing_id}`)}
-                    className="tenant-list-item-image"
+                    className="viewings-card-image"
                   />
                 </div>
-                <div className="tenant-list-item-content">
+                <div className="viewings-card-content">
                   <h3 onClick={() => navigate(`/listings/${viewing.listing_id}`)}>
                     {viewing.listings?.title || 'Property'}
                   </h3>
-                  <p className="tenant-list-item-address">
-                    <MapPin size={14} /> {viewing.listings?.address || 'No address'}
+                  <p className="viewings-card-address">
+                    <Search size={16} /> {viewing.listings?.address || 'No address specified'}
                   </p>
-                  <div className="tenant-list-item-details">
-                    <span><Calendar size={14} /> {formatDate(viewing.scheduled_for || viewing.preferred_at)}</span>
+                  <div className="viewings-card-details">
+                    {hasDateTime && (
+                      <>
+                        <span className="detail-item">
+                          <Calendar size={14} />
+                          {formatDate(viewing.scheduled_for || viewing.preferred_at)}
+                        </span>
+                        {viewing.scheduled_for && (
+                          <span className="detail-item">
+                            <Clock size={14} />
+                            {formatTime(viewing.scheduled_for)}
+                          </span>
+                        )}
+                      </>
+                    )}
                   </div>
                   {viewing.message && (
-                    <p className="tenant-list-item-message">"{viewing.message}"</p>
+                    <p className="viewings-card-message">
+                      "{viewing.message}"
+                    </p>
                   )}
-                  <span className={`tenant-badge ${status.class}`}>
-                    {status.label}
-                  </span>
+                  <div className="viewings-card-status">
+                    <StatusIcon size={14} />
+                    <span className={`status-badge ${status.class}`}>
+                      {status.label}
+                    </span>
+                    <span className="status-description">{status.description}</span>
+                  </div>
                 </div>
               </div>
             );

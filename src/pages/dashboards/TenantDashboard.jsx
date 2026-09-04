@@ -216,98 +216,104 @@ export default function TenantDashboard() {
 
   return (
     <div className="tenant-dashboard">
-      {/* Sidebar */}
-      <aside className="tenant-sidebar">
-        <div className="sidebar-brand">
-          <Building2 size={28} />
-          <span>Marketplace</span>
-        </div>
+    {/* Sidebar - Now Brown with White Text */}
+    <aside className="tenant-sidebar">
+      <div 
+        className="sidebar-brand"
+        onClick={() => navigate('/welcome')}
+        style={{ cursor: 'pointer' }}
+      >
+        <Building2 size={28} />
+        <span>MarketPlace</span>
+      </div>
 
-        <div className="sidebar-profile">
-          <img 
-            src={profile?.avatar_url || 'https://placehold.co/64x64?text=👤'} 
-            alt={profile?.full_name}
-            className="sidebar-avatar"
-          />
-          <div className="sidebar-profile-info">
-            <p className="sidebar-profile-name">{profile?.full_name || 'Tenant'}</p>
-            <p className="sidebar-profile-role">Tenant</p>
-          </div>
+      <div className="sidebar-profile">
+        <img 
+          src={profile?.avatar_url || 'https://placehold.co/64x64?text=👤'} 
+          alt={profile?.full_name}
+          className="sidebar-avatar"
+        />
+        <div className="sidebar-profile-info">
+          <p className="sidebar-profile-name">{profile?.full_name || 'Tenant'}</p>
+          <p className="sidebar-profile-role">Tenant</p>
         </div>
+      </div>
 
-        <nav className="sidebar-nav">
-          <button 
-            className="sidebar-nav-item active"
-            onClick={() => navigate('/dashboard')}
-          >
-            <Home size={20} />
-            <span>Dashboard</span>
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/listings')}
-          >
-            <Search size={20} />
-            <span>Find Properties</span>
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/dashboard/saved')}
-          >
-            <Heart size={20} />
-            <span>Saved Properties</span>
-            {savedProperties.length > 0 && (
-              <span className="sidebar-badge">{savedProperties.length}</span>
-            )}
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/dashboard/messages')}
-          >
-            <MessageCircle size={20} />
-            <span>Inquiries</span>
-            {activeInquiries.length > 0 && (
-              <span className="sidebar-badge">{activeInquiries.length}</span>
-            )}
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/dashboard/viewings')}
-          >
-            <Calendar size={20} />
-            <span>Viewings</span>
-            {viewingRequests.filter(v => v.status === 'pending').length > 0 && (
-              <span className="sidebar-badge">
-                {viewingRequests.filter(v => v.status === 'pending').length}
-              </span>
-            )}
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/dashboard/profile')}
-          >
-            <User size={20} />
-            <span>Profile</span>
-          </button>
-          <button 
-            className="sidebar-nav-item"
-            onClick={() => navigate('/dashboard/settings')}
-          >
-            <Settings size={20} />
-            <span>Settings</span>
-          </button>
-        </nav>
+      <nav className="sidebar-nav">
+        <button 
+          className="sidebar-nav-item active"
+          onClick={() => navigate('/dashboard')}
+        >
+          <Home size={20} />
+          <span>Dashboard</span>
+        </button>
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/listings')}
+        >
+          <Search size={20} />
+          <span>Find Properties</span>
+        </button>
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/dashboard/saved')}
+        >
+          <Heart size={20} />
+          <span>Saved Properties</span>
+          {savedProperties.length > 0 && (
+            <span className="sidebar-badge">{savedProperties.length}</span>
+          )}
+        </button>
+        
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/dashboard/messages')}
+        >
+          <MessageCircle size={20} />
+          <span>Inquiries</span>
+          {activeInquiries.length > 0 && (
+            <span className="sidebar-badge">{activeInquiries.length}</span>
+          )}
+        </button>
 
-        <div className="sidebar-footer">
-          <button 
-            className="sidebar-nav-item logout"
-            onClick={handleSignOut}
-          >
-            <LogOut size={20} />
-            <span>Logout</span>
-          </button>
-        </div>
-      </aside>
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/dashboard/viewings')}
+        >
+          <Calendar size={20} />
+          <span>Viewings</span>
+          {viewingRequests.filter(v => v.status === 'pending').length > 0 && (
+            <span className="sidebar-badge">
+              {viewingRequests.filter(v => v.status === 'pending').length}
+            </span>
+          )}
+        </button>
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/dashboard/profile')}
+        >
+          <User size={20} />
+          <span>Profile</span>
+        </button>
+        <button 
+          className="sidebar-nav-item"
+          onClick={() => navigate('/dashboard/settings')}
+        >
+          <Settings size={20} />
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div className="sidebar-footer">
+        <button 
+          className="sidebar-nav-item logout"
+          onClick={handleSignOut}
+        >
+          <LogOut size={20} />
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
 
       {/* Main Content */}
       <main className="tenant-main">
@@ -353,6 +359,9 @@ export default function TenantDashboard() {
               <p className="stat-label">Saved Properties</p>
             </div>
           </div>
+
+
+
           <div className="stat-card">
             <div className="stat-icon inquiries">
               <MessageCircle size={20} />
@@ -362,6 +371,8 @@ export default function TenantDashboard() {
               <p className="stat-label">Active Inquiries</p>
             </div>
           </div>
+
+
           <div className="stat-card">
             <div className="stat-icon viewings">
               <Calendar size={20} />

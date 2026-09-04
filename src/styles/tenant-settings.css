@@ -1,0 +1,271 @@
+/* src/styles/tenant-settings.css */
+
+
+/* Add to the top of each tenant page CSS file */
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  padding: 8px 16px;
+  margin-bottom: 20px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--maroon-800, #5a1a20);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(90, 26, 32, 0.2);
+}
+
+.back-btn:hover {
+  background: var(--maroon-950, #2b0d10);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(90, 26, 32, 0.3);
+}
+
+.back-btn svg {
+  color: #ffffff;
+}
+
+
+
+.settings-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+}
+
+.settings-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline, #e7dcdb);
+  margin-bottom: 24px;
+}
+
+.settings-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display, 'Spectral', Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink, #221a1b);
+  margin: 0 0 4px;
+}
+
+.settings-header h1 svg {
+  color: var(--maroon-600, #82232c);
+}
+
+.settings-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted, #8a7274);
+  margin: 0;
+}
+
+.settings-saved-banner {
+  padding: 12px 16px;
+  background: #e1eae3;
+  color: #3f6b54;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-section {
+  background: var(--paper, #fff);
+  border-radius: 12px;
+  border: 1px solid var(--hairline, #e7dcdb);
+  padding: 20px 24px;
+}
+
+.settings-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display, 'Spectral', Georgia, serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink, #221a1b);
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--hairline, #e7dcdb);
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hairline, #e7dcdb);
+  gap: 16px;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.settings-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-item-info p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink, #221a1b);
+  margin: 0 0 2px;
+}
+
+.settings-item-info span {
+  font-size: 0.78rem;
+  color: var(--muted, #8a7274);
+  display: block;
+}
+
+.settings-toggle-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.settings-select {
+  padding: 6px 12px;
+  border: 1px solid var(--hairline, #e7dcdb);
+  border-radius: 6px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.82rem;
+  background: var(--paper-warm, #faf6f5);
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 130px;
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: var(--maroon-600, #82232c);
+}
+
+.settings-save-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--maroon-800, #5a1a20);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.settings-save-btn:hover {
+  background: var(--maroon-950, #2b0d10);
+}
+
+.settings-danger-zone {
+  background: #fef3f0;
+  border: 1px solid #f3d4ca;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 4px;
+}
+
+.settings-danger-zone h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b5482f;
+  margin: 0 0 8px;
+}
+
+.settings-danger-zone .settings-item {
+  border-bottom: none;
+  padding: 8px 0;
+}
+
+.settings-delete-btn {
+  padding: 8px 20px;
+  background: #b5482f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.settings-delete-btn:hover {
+  background: #8f3a26;
+}
+
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 16px;
+  }
+
+  .settings-section {
+    padding: 16px;
+  }
+
+  .settings-item {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .settings-item-info {
+    flex: 1 1 100%;
+  }
+
+  .settings-select {
+    min-width: 100%;
+  }
+
+  .settings-delete-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-header h1 {
+    font-size: 1.2rem;
+  }
+}
