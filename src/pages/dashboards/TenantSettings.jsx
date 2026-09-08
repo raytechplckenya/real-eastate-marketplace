@@ -119,46 +119,7 @@ export default function TenantSettings() {
           </div>
         </div>
 
-        {/* Preferences Section */}
-        <div className="settings-section">
-          <h3><Globe size={18} /> Preferences</h3>
-          <div className="settings-item">
-            <div className="settings-item-info">
-              <p>
-                {settings.darkMode ? <Moon size={16} /> : <Sun size={16} />}
-                Dark Mode
-              </p>
-              <span>Switch between light and dark theme</span>
-            </div>
-            <button 
-              className="settings-toggle-btn"
-              onClick={() => toggleSetting('darkMode')}
-              aria-label="Toggle dark mode"
-            >
-              {settings.darkMode ? (
-                <ToggleRight size={28} color="#5a1a20" />
-              ) : (
-                <ToggleLeft size={28} color="#8a7274" />
-              )}
-            </button>
-          </div>
 
-          <div className="settings-item">
-            <div className="settings-item-info">
-              <p>Language</p>
-              <span>Select your preferred language</span>
-            </div>
-            <select 
-              value={settings.language}
-              onChange={(e) => handleSelectChange('language', e.target.value)}
-              className="settings-select"
-            >
-              <option value="en">🇬🇧 English</option>
-              <option value="sw">🇰🇪 Swahili</option>
-              <option value="fr">🇫🇷 French</option>
-            </select>
-          </div>
-        </div>
 
         {/* Privacy Section */}
         <div className="settings-section">

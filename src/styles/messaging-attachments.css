@@ -176,3 +176,96 @@
   font-size: 12px;
   opacity: 0.7;
 }
+
+
+
+
+/*  Messaging Badge Styles - Small Circle */
+/* Unread badge - small circle */
+.messaging-unread-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #e74c3c;
+  color: #ffffff;
+  font-size: 0.55rem;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+  line-height: 1;
+  text-align: center;
+  margin-left: 4px;
+  margin-top: 2px;
+  /* Ensure it stays circular for single digits */
+  aspect-ratio: 1 / 1;
+}
+
+/* For 2-digit numbers */
+.messaging-unread-badge.two-digits {
+  min-width: 20px;
+  padding: 0 3px;
+  font-size: 0.5rem;
+}
+
+/* For 3-digit numbers (99+) */
+.messaging-unread-badge.three-digits {
+  min-width: 24px;
+  padding: 0 3px;
+  font-size: 0.45rem;
+}
+
+/* For the sidebar badge in TenantDashboard */
+.sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: #e74c3c;
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+  line-height: 1;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  margin-left: auto;
+}
+
+.sidebar-badge.two-digits {
+  min-width: 22px;
+  padding: 0 4px;
+  font-size: 0.55rem;
+}
+
+.sidebar-badge.three-digits {
+  min-width: 26px;
+  padding: 0 3px;
+  font-size: 0.5rem;
+}
+
+/* Badge animation - subtle pulse when new message arrives */
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.messaging-unread-badge.pulse {
+  animation: badgePulse 0.3s ease 2;
+}
+
+.sidebar-badge.pulse {
+  animation: badgePulse 0.3s ease 2;
+}

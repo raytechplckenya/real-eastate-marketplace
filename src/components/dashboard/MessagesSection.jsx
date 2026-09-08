@@ -103,6 +103,12 @@ export default function MessagesSection() {
   const typingHideTimeoutRef = useRef(null);
 
 
+  const getBadgeClass = (count) => {
+  if (count >= 100) return 'messaging-unread-badge three-digits';
+  if (count >= 10) return 'messaging-unread-badge two-digits';
+  return 'messaging-unread-badge';
+  };
+
   // Handle navigation state for starting a conversation
   
 
@@ -394,7 +400,9 @@ const startConversationWithUser = useCallback(async (otherUserId, listingId = nu
   }
 
   const markMessagesAsRead = useCallback(async (conversationId) => {
-    if (!conversationId || !profile?.id) return;
+  if (!conversationId || !profile?.id) return;
+  
+  try {
     const { error } = await supabase
       .schema('marketplace')
       .from('messages')
@@ -402,8 +410,52 @@ const startConversationWithUser = useCallback(async (otherUserId, listingId = nu
       .eq('conversation_id', conversationId)
       .neq('sender_id', profile.id)
       .is('read_at', null);
-    if (error) console.error('Failed to mark messages as read:', error);
-  }, [profile?.id]);
+    
+    if (error) {
+      console.error('Failed to mark messages as read:', error);
+      return;
+    }
+    
+    // Update local state to remove unread count for this conversation
+    setUnreadCounts(prev => ({
+      ...prev,
+      [conversationId]: 0
+    }));
+    
+    // Also update the conversations list
+    setConversations(prev => {
+      const updated = prev.map(c => 
+        c.id === conversationId 
+          ? { ...c, unreadCount: 0, lastMessage: c.lastMessage } 
+          : c
+      );
+      if (profile?.id) setCachedConversations(profile.id, updated);
+      return updated;
+    });
+    
+    // Force refresh the badge count
+    fetchConversations({ silent: true });
+    
+    } catch (error) {
+      console.error('Error marking messages as read:', error);
+    }
+  }, [profile?.id, fetchConversations]);
+
+
+
+  const handleConversationClick = useCallback((conversation) => {
+  setActiveConversation({ 
+    id: conversation.id, 
+    otherUser: conversation.otherUser, 
+    listingId: conversation.listingId 
+  });
+  
+  // Immediately mark messages as read
+  if (conversation.id) {
+    markMessagesAsRead(conversation.id);
+  }
+  }, [markMessagesAsRead]);
+
 
   function captureRowPositions() {
     const map = new Map();
@@ -807,7 +859,9 @@ const startConversationWithUser = useCallback(async (otherUserId, listingId = nu
                       <span className="messaging-conversation-time">{timeAgo(c.lastMessageAt)}</span>
                     )}
                     {unread > 0 && (
-                      <span className="messaging-unread-badge">{unread > 99 ? '99+' : unread}</span>
+                      <span className={getBadgeClass(unread)}>
+                        {unread > 99 ? '99+' : unread}
+                      </span>
                     )}
                   </div>
                 </button>
